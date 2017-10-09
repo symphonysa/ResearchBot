@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-core:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-util:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.7" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-jackson:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-guava:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-afterburner:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-validation:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.3.4.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:javax.el:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-configuration:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.17" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-logging:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-logback:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:jul-to-slf4j:1.7.24" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:log4j-over-slf4j:1.7.24" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.24" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-util:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-metrics:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-jersey:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.ext:jersey-metainf-services:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.ext:jersey-bean-validation:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.el:javax.el-api:2.2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.web:javax.el:2.2.4" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-jersey2:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-webapp:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-xml:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-continuation:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-servlets:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-annotation:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-jetty:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-jetty9:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlets:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-lifecycle:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-core:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-jvm:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-servlets:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-json:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.papertrail:profiler:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-healthchecks:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-request-logging:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-access:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sourceforge.argparse4j:argparse4j:0.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty.toolchain.setuid:jetty-setuid-java:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-auth:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-assets:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-http2:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty.http2:http2-server:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty.http2:http2-common:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty.http2:http2-hpack:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-alpn-server:9.4.2.v20170220" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-hibernate:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-db:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-jdbc:8.5.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:8.5.9" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.8.7" level="project" />
+    <orderEntry type="library" name="Maven: javax.transaction:jta:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jadira.usertype:usertype.core:6.0.1.GA" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:5.2.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jadira.usertype:usertype.spi:6.0.1.GA" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.2.8.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.javassist:javassist:3.21.0-GA" level="project" />
+    <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss:jandex:2.0.3.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.3.3" level="project" />
+    <orderEntry type="library" name="Maven: dom4j:dom4j:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-migrations:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.liquibase:liquibase-core:3.5.3" level="project" />
+    <orderEntry type="library" name="Maven: com.mattbertolini:liquibase-slf4j:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-views-freemarker:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-views:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.23" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-views-mustache:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.spullara.mustache.java:compiler:0.9.4" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-metrics-graphite:1.1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard.metrics:metrics-graphite:3.2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.h2database:h2:1.4.193" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.dropwizard:dropwizard-testing:1.1.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:2.5.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:3.6.2" level="project" />
+    <orderEntry type="library" name="Maven: de.spinscale:dropwizard-jobs-core:1.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.2.3" level="project" />
+    <orderEntry type="library" name="Maven: c3p0:c3p0:0.9.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.reflections:reflections:0.9.10" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:annotations:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.neovisionaries:nv-i18n:1.22" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-inmemory:2.25.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.jersey.test-framework:jersey-test-framework-core:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-server:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-common:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-guava:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.media:jersey-media-jaxb:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-api:2.5.0-b32" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-utils:2.5.0-b32" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.5.0-b32" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2.external:javax.inject:2.5.0-b32" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.hk2:hk2-locator:2.5.0-b32" level="project" />
+    <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-client:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.symphonyoss.symphony:symphony-client:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.symphonyoss.symphony:symphony-authenticator-java-jersey2-client:1.47.0" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.media:jersey-media-multipart:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jvnet.mimepull:mimepull:1.9.6" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish.jersey.ext:jersey-entity-filtering:2.25.1" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger:swagger-core:1.5.9" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger:swagger-models:1.5.9" level="project" />
+    <orderEntry type="library" name="Maven: io.swagger:swagger-annotations:1.5.9" level="project" />
+    <orderEntry type="library" name="Maven: com.brsanthu:migbase64:2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.symphonyoss.symphony:symphony-agent-java-jersey2-client:1.47.0" level="project" />
+    <orderEntry type="library" name="Maven: org.symphonyoss.symphony:symphony-pod-java-jersey2-client:1.47.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.7" level="project" />
+    <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.24" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.21" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:2.7.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy:1.6.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy-agent:1.6.9" level="project" />
+    <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.9.2" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api-client:google-api-client:1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client:1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-jackson2:1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava-jdk5:17.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-gson:1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client:1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-translate:v2-rev49-1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: ai.api:libai:1.4.8" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:2.25.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.jersey.containers:jersey-container-grizzly2-http:2.25.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-http-server:2.3.28" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-http:2.3.28" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-framework:2.3.28" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.jersey.containers:jersey-container-grizzly2-servlet:2.25.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish.grizzly:grizzly-http-servlet:2.3.28" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-bigquery:0.10.0-beta" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-bigquery:v2-rev330-1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-compute:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-compute:v1-rev103-1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-core:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.auth:google-auth-library-credentials:0.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.auth:google-auth-library-oauth2-http:0.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api-client:google-api-client-appengine:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client-appengine:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client-servlet:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-jdo:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api-client:google-api-client-servlet:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.jdo:jdo2-api:2.3-eb" level="project" />
+    <orderEntry type="library" name="Maven: javax.transaction:transaction-api:1.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-appengine:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-jackson:1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.11" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20151123" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-protobuf:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java-util:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-core:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-context:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-protobuf-lite:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api:gax:0.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.inject:guice:4.0" level="project" />
+    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.auto.value:auto-value:1.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-common-protos:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api:api-common:0.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-iam-v1:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-datastore:0.10.0-beta" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud.datastore:datastore-v1-protos:1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud.datastore:datastore-v1-proto-client:1.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-protobuf:1.20.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-dns:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-dns:v1-rev7-1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3.1" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-errorreporting:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-tcnative-boringssl-static:1.1.33.Fork19" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-error-reporting-v1beta1:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-netty:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler-proxy:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-socks:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http2:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-stub:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: io.grpc:grpc-auth:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-language:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-language-v1:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-logging:0.10.0-beta" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-logging-v2:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-monitoring:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-monitoring-v3:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-pubsub:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-pubsub-v1:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-resourcemanager:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-cloudresourcemanager:v1beta1-rev10-1.21.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-speech:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-speech-v1beta1:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-storage:0.10.0-beta" level="project" />
+    <orderEntry type="library" name="Maven: com.google.apis:google-api-services-storage:v1-rev85-1.22.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-trace:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-trace-v1:0.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-translate:0.10.0-alpha" level="project" />
+    <orderEntry type="library" name="Maven: com.google.cloud:google-cloud-vision:0.10.0-beta" level="project" />
+    <orderEntry type="library" name="Maven: com.google.api.grpc:grpc-google-cloud-vision-v1:0.1.6" level="project" />
+  </component>
+</module>

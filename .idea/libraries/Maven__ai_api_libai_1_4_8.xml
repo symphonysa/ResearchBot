@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: ai.api:libai:1.4.8">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ai/api/libai/1.4.8/libai-1.4.8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/ai/api/libai/1.4.8/libai-1.4.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/ai/api/libai/1.4.8/libai-1.4.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
