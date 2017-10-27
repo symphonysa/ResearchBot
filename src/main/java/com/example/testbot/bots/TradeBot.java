@@ -1,5 +1,9 @@
 package com.example.testbot.bots;
 
+import com.example.testbot.SymphonyTestConfiguration;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.Service;
+import com.google.cloud.firestore.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
@@ -13,7 +17,9 @@ import org.symphonyoss.symphony.clients.model.SymUser;
 import org.symphonyoss.symphony.pod.model.Stream;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 
 public class TradeBot implements ChatListener, ChatServiceListener, RoomServiceEventListener, RoomEventListener {
@@ -22,19 +28,20 @@ public class TradeBot implements ChatListener, ChatServiceListener, RoomServiceE
     private final Logger logger = LoggerFactory.getLogger(TradeBot.class);
     private SymphonyClient symClient;
     private RoomService roomService;
+    SymphonyTestConfiguration config;
 
 
-    protected TradeBot(SymphonyClient symClient) {
+    protected TradeBot(SymphonyClient symClient, SymphonyTestConfiguration config) {
         this.symClient=symClient;
-
+        this.config = config;
         init();
 
 
     }
 
-    public static TradeBot getInstance(SymphonyClient symClient){
+    public static TradeBot getInstance(SymphonyClient symClient, SymphonyTestConfiguration config){
         if(instance==null){
-            instance = new TradeBot(symClient);
+            instance = new TradeBot(symClient,config);
         }
         return instance;
     }
@@ -42,17 +49,10 @@ public class TradeBot implements ChatListener, ChatServiceListener, RoomServiceE
     private void init() {
 
         logger.info("Connections example starting...");
-//        try {
-            //Will notify the bot of new Chat conversations.
-            symClient.getChatService().addListener(this);
-            roomService = symClient.getRoomService();
-            roomService.addRoomServiceEventListener(this);
 
-
-            //A message to send when the BOT comes online.
-            SymMessage aMessage = new SymMessage();
-            aMessage.setFormat(SymMessage.Format.MESSAGEML);
-            aMessage.setMessage("<messageML>Hello <b>master</b>, I'm alive again....</messageML>");
+        symClient.getChatService().addListener(this);
+        roomService = symClient.getRoomService();
+        roomService.addRoomServiceEventListener(this);
 
     }
 
@@ -62,46 +62,41 @@ public class TradeBot implements ChatListener, ChatServiceListener, RoomServiceE
     public void onChatMessage(SymMessage message) {
         if (message == null)
             return;
-
+        String email = message.getSymUser().getEmailAddress();
         logger.debug("TS: {}\nFrom ID: {}\nSymMessage: {}\nSymMessage Type: {}",
                 message.getTimestamp(),
                 message.getFromUserId(),
                 message.getMessage(),
                 message.getMessageType());
-        SymMessage message2 = new SymMessage();
+        SymMessage message2;
 
-        if (message.getMessage().contains("trade")) {
-            message2.setMessage("<messageML>New trade</messageML>");
+        if (message.getMessage().contains("alert")) {
 
-        }  else if (message.getMessage().contains("alert")) {
 
             message2 = new SymMessage();
 
-            message2.setEntityData("{\"summary\": { \"type\": \"com.symphony.fa\", \"version\":  \"1.0\" }}");
+            message2.setEntityData("{\"summary\": { \"type\": \"com.symphony.fa\", \"version\":  \"1.0\", \"userEmail\":  \""+email+"\" }}");
             message2.setMessage("<messageML><div class='entity' data-entity-id='summary'><b><i>Please install the FA application to render this entity.</i></b></div></messageML>");
-
+            try {
+                symClient.getMessagesClient().sendMessage(message.getStream(), message2);
+            } catch (MessagesException e) {
+                logger.error("Failed to send message", e);
+            }
 
         }
-        else
-         {
-            //message2.setMessage("<messageML>Ask me something else</messageML>");
-        }
 
-        try {
-            symClient.getMessagesClient().sendMessage(message.getStream(), message2);
-        } catch (MessagesException e) {
-            logger.error("Failed to send message", e);
-        }
 
 
     }
+
+
 
     @Override
     public void onNewChat(Chat chat) {
 
         chat.addListener(this);
 
-        logger.debug("New chat session detected on stream {} with {}", chat.getStream().getId(), chat.getRemoteUsers());
+        logger.debug("New chat session detected on stream {} with {}", chat.getStream().getStreamId(), chat.getRemoteUsers());
     }
 
     @Override
@@ -194,7 +189,7 @@ public class TradeBot implements ChatListener, ChatServiceListener, RoomServiceE
 
             SymMessage message2 = new SymMessage();
 
-            message2.setEntityData("{\"summary\": { \"type\": \"com.symphony.fa\", \"version\":  \"1.0\" }}");
+            message2.setEntityData("{\"summary\": { \"type\": \"com.symphony.fa\", \"version\":  \"1.0\", \"userEmail\":  \""+email+"\" }}");
             message2.setMessage("<messageML><div class='entity' data-entity-id='summary'><b><i>Please install the FA application to render this entity.</i></b></div></messageML>");
 
 

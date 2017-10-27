@@ -25,7 +25,7 @@ public class TradeBotResource {
         this.config = config;
         try {
             SymphonyClient symClient = new SymphonyAuth().init(config);
-            tradeBot = TradeBot.getInstance(symClient);
+            tradeBot = TradeBot.getInstance(symClient, config);
 
         } catch (Exception e) {
             LOG.error("error", e);

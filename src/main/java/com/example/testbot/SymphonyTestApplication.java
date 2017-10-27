@@ -37,21 +37,7 @@ public class SymphonyTestApplication extends Application<SymphonyTestConfigurati
                 )
         );
 
-        bootstrap.addBundle(new AssetsBundle());
-        bootstrap.addBundle(new MigrationsBundle<SymphonyTestConfiguration>() {
-            @Override
-            public DataSourceFactory getDataSourceFactory(SymphonyTestConfiguration configuration) {
-                return configuration.getDataSourceFactory();
-            }
-        });
-        bootstrap.addBundle(new ViewBundle<SymphonyTestConfiguration>() {
-            @Override
-            public Map<String, Map<String, String>> getViewConfiguration(SymphonyTestConfiguration configuration) {
-                return configuration.getViewRendererConfiguration();
-            }
-        });
-        bootstrap.addBundle(new ViewBundle());
-        //bootstrap.addBundle(new JobsBundle());
+
     }
 
     @Override

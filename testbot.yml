@@ -94,4 +94,3 @@ botEmailAddress: bot.user10@example.com
 agentAPIEndpoint: https://preview.symphony.com/agent
 podAPIEndpoint: https://preview.symphony.com/pod
 userEmailAddress: kevin@symphony.com
-tokensFile: /Users/manuela.caicedo/Documents/GoogleGsuiteApp/tokens.json

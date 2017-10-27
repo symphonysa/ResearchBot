@@ -125,27 +125,12 @@
         <dependency>
             <groupId>org.symphonyoss.symphony</groupId>
             <artifactId>symphony-client</artifactId>
-            <version>1.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>1.22.0</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.google.http-client</groupId>
             <artifactId>google-http-client-gson</artifactId>
             <version>1.22.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-translate</artifactId>
-            <version>v2-rev49-1.22.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ai.api</groupId>
-            <artifactId>libai</artifactId>
-            <version>1.4.8</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.test-framework.providers</groupId>
@@ -164,10 +149,11 @@
         </dependency>
         <dependency>
             <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud</artifactId>
-            <version>0.10.0-alpha</version>
+            <artifactId>google-cloud-firestore</artifactId>
+            <version>0.25.0-beta</version>
         </dependency>
     </dependencies>
+
 
     <build>
         <pluginManagement>

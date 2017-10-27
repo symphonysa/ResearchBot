@@ -1,5 +1,5 @@
-/Users/manuela.caicedo/Documents/Dropwizard SO Starter/src/main/java/com/example/testbot/resources/TradeBotResource.java
-/Users/manuela.caicedo/Documents/Dropwizard SO Starter/src/main/java/com/example/testbot/SymphonyTestApplication.java
-/Users/manuela.caicedo/Documents/Dropwizard SO Starter/src/main/java/com/example/testbot/SymphonyTestConfiguration.java
-/Users/manuela.caicedo/Documents/Dropwizard SO Starter/src/main/java/com/example/testbot/utils/SymphonyAuth.java
-/Users/manuela.caicedo/Documents/Dropwizard SO Starter/src/main/java/com/example/testbot/bots/TradeBot.java
+/Users/manuela.caicedo/Documents/Dropwizard-SO-Starter/src/main/java/com/example/testbot/bots/TradeBot.java
+/Users/manuela.caicedo/Documents/Dropwizard-SO-Starter/src/main/java/com/example/testbot/utils/SymphonyAuth.java
+/Users/manuela.caicedo/Documents/Dropwizard-SO-Starter/src/main/java/com/example/testbot/resources/TradeBotResource.java
+/Users/manuela.caicedo/Documents/Dropwizard-SO-Starter/src/main/java/com/example/testbot/SymphonyTestConfiguration.java
+/Users/manuela.caicedo/Documents/Dropwizard-SO-Starter/src/main/java/com/example/testbot/SymphonyTestApplication.java

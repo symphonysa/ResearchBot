@@ -17,9 +17,6 @@ public class SymphonyTestConfiguration extends Configuration {
     private String sessionAuthURL;
 
     @NotEmpty
-    private String tokensFile;
-
-    @NotEmpty
     private String keyAuthUrl;
     @NotEmpty
     private String localKeystorePath;
@@ -196,13 +193,4 @@ public class SymphonyTestConfiguration extends Configuration {
         this.userEmailAddress = userEmailAddress;
     }
 
-    @JsonProperty
-    public String getTokensFile() {
-        return tokensFile;
-    }
-
-    @JsonProperty("tokensFile")
-    public void setTokensFile(String tokensFile) {
-        this.tokensFile = tokensFile;
-    }
 }
