@@ -32,8 +32,8 @@ server:
       port: 7070
     - type: https
       port: 8443
-      keyStorePath: /Users/manuela.caicedo/Documents/certs/server.keystore
-      keyStorePassword: "changeit"
+      keyStorePath:
+      keyStorePassword:
       validateCerts: false
 
     #this requires the alpn-boot library on the JVM's boot classpath
@@ -84,13 +84,13 @@ viewRendererConfiguration:
         whitespace_stripping: yes
 
 #ONLY EDIT THIS SECTION FOR SYMPHONY CONFIG
-sessionAuthURL: https://preview-api.symphony.com/sessionauth
-keyAuthUrl: https://preview-api.symphony.com:443/keyauth
-localKeystorePath: /Users/manuela.caicedo/Documents/certs/server.truststore
-localKeystorePassword: changeit
-botCertPath: /Users/manuela.caicedo/Documents/certs/bot.user10.p12
-botCertPassword: changeit
-botEmailAddress: bot.user10@example.com
-agentAPIEndpoint: https://preview.symphony.com/agent
-podAPIEndpoint: https://preview.symphony.com/pod
-userEmailAddress: kevin@symphony.com
+sessionAuthURL:
+keyAuthUrl:
+localKeystorePath:
+localKeystorePassword:
+botCertPath:
+botCertPassword:
+botEmailAddress:
+agentAPIEndpoint:
+podAPIEndpoint:
+userEmailAddress:

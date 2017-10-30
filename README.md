@@ -1,53 +1,53 @@
-# Introduction
+# Structured Objects Dropwizard Bot Sample
 
-The Dropwizard example application was developed to, as its name implies, provide examples of some of the features
-present in Dropwizard.
+## Introduction
 
-# Overview
+This example shows a simple Symphony chat bot using the [SymphonyOSS symphony-java-client](https://github.com/symphonyoss/symphony-java-client) and Dropwizard. The Trade Alert Bot is part of a PWM demo that shows the interaction on Symphony between an FA and a client. The bot responds to the keyword 'alert' with a structured object message. Also, since it is a Dropwizard application, endpoints can be configured to trigger messages. 
 
-Included with this application is an example of the optional DB API module. The examples provided illustrate a few of
-the features available in [Hibernate](http://hibernate.org/), along with demonstrating how these are used from within
-Dropwizard.
+## Pre-requisites
 
-This database example is comprised of the following classes:
+1. Service account with a valid certificate for the bot
+2. Extension API application with a entity renderer for the structured object
 
-* The `PersonDAO` illustrates using the Data Access Object pattern with assisting of Hibernate.
+## Overview
 
-* The `Person` illustrates mapping of Java classes to database tables with assisting of JPA annotations.
+At startup, the TradeBot is initialized as a Chat and Room listener so the implemented methods respond to the events of the datafeed for the bot.
 
-* All the JPQL statements for use in the `PersonDAO` are located in the `Person` class.
+* The `onChatMessage` method has the code to send a messageML with a structured object. The entity data should indicate the type (this refers to the renderer Extensions API application for the message)
+and any additional fields for the object that will be rendered, in this case the sender's email address.
 
-* `migrations.xml` illustrates the usage of `dropwizard-migrations` which can create your database prior to running
-your application for the first time.
+In this sample, the renderer for the structured object uses an iframe that is clickable on the Symphony UI. To bring the conversation back to the chat itself, a button is set up to call an endpoint of this application that then posts a confirmation message to the specified streamId. 
 
-* The `PersonResource` and `PeopleResource` are the REST resource which use the PersonDAO to retrieve data from the database, note the injection
-of the PersonDAO in their constructors.
+* The `TradeBotResource` includes the endpoints that given certain parameters, trigger the bot to send messages to either 1-1 conversation with a userb by email, or a streamId.
 
-As with all the modules the db example is wired up in the `initialize` function of the `HelloWorldApplication`.
+## Running This Sample
 
-# Running The Application
+Set up your config in `example.yml`. Fill out the following parameters.
 
-To test the example application run the following commands.
+        sessionAuthURL: 
+        keyAuthUrl: 
+        localKeystorePath: 
+        localKeystorePassword: 
+        botCertPath: 
+        botCertPassword: 
+        botEmailAddress: 
+        agentAPIEndpoint: 
+        podAPIEndpoint: 
+        userEmailAddress: 
+        
+        keyStorePath: 
+        keyStorePassword: 
+
+To test the application run the following commands.
 
 * To package the example run.
 
         mvn package
 
-* To setup the h2 database run.
-
-        java -jar target/dropwizard-example-1.0.0-rc3-SNAPSHOT.jar db migrate example.yml
-
 * To run the server run.
 
-        java -jar target/dropwizard-example-1.0.0-rc3-SNAPSHOT.jar server example.yml
+        java -jar target/dropwizard-api-test-1.1.0-SNAPSHOT-sources.jar server example.yml
 
-* To hit the Hello World example (hit refresh a few times).
+* To hit the endpoint to send a Trade Alert message
 
-	http://localhost:8080/hello-world
-
-* To post data into the application.
-
-	curl -H "Content-Type: application/json" -X POST -d '{"fullName":"Other Person","jobTitle":"Other Title"}' http://localhost:8080/people
-	
-	open http://localhost:8080/people
-# AgentTestJavaApp
+	http://localhost:7070/tradeBot/sendTradeAlert?email=[yourtestemail]
