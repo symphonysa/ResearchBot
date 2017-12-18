@@ -1,21 +1,16 @@
-package com.example.testbot;
+package com.symphony.research;
 
 
-import com.example.testbot.resources.TradeBotResource;
+import com.symphony.research.resources.ResearchBotResource;
 import io.dropwizard.Application;
-import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
-import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.dropwizard.views.ViewBundle;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.FilterRegistration;
-import java.util.Map;
 
 public class SymphonyTestApplication extends Application<SymphonyTestConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -52,6 +47,6 @@ public class SymphonyTestApplication extends Application<SymphonyTestConfigurati
         cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-        environment.jersey().register(new TradeBotResource(configuration));
+        environment.jersey().register(new ResearchBotResource(configuration));
     }
 }

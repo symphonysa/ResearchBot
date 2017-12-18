@@ -1,4 +1,4 @@
-package com.example.testbot;
+package com.symphony.research;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
@@ -41,6 +41,16 @@ public class SymphonyTestConfiguration extends Configuration {
 
     @NotEmpty
     private String defaultName = "Stranger";
+
+    private String proxyURL;
+
+    public String getProxyURL() {
+        return proxyURL;
+    }
+
+    public void setProxyURL(String proxyURL) {
+        this.proxyURL = proxyURL;
+    }
 
     @Valid
     @NotNull
