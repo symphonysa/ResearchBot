@@ -1,4 +1,4 @@
-# Structured Objects Dropwizard Bot Sample
+# Reseach Distribution Bot Sample
 
 ## Introduction
 
