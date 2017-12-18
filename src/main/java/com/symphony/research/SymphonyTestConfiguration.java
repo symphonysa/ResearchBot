@@ -44,6 +44,16 @@ public class SymphonyTestConfiguration extends Configuration {
 
     private String proxyURL;
 
+    private String mongoURL;
+
+    public String getMongoURL() {
+        return mongoURL;
+    }
+
+    public void setMongoURL(String mongoURL) {
+        this.mongoURL = mongoURL;
+    }
+
     public String getProxyURL() {
         return proxyURL;
     }

@@ -27,8 +27,8 @@ public class MongoDBClient {
     private MongoCollection<ResearchSent> researchSentCollection;
     private MongoCollection<ResearchInterest> researchInterestCollection;
 
-    public MongoDBClient() {
-        MongoClientURI connectionString = new MongoClientURI("mongodb://ioibot:1GaWixKxGEGe4Kfz@mifidbotcluster-shard-00-00-oboew.mongodb.net:27017,mifidbotcluster-shard-00-01-oboew.mongodb.net:27017,mifidbotcluster-shard-00-02-oboew.mongodb.net:27017/IOIBot?ssl=true&replicaSet=MiFIDBotCluster-shard-0&authSource=admin");
+    public MongoDBClient(String mongoURL) {
+        MongoClientURI connectionString = new MongoClientURI(mongoURL);
         MongoClient mongoClient = new MongoClient(connectionString);
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));

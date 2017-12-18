@@ -62,7 +62,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
         roomService = symClient.getRoomService();
         roomService.addRoomServiceEventListener(this);
 
-        mongoDBClient = new MongoDBClient();
+        mongoDBClient = new MongoDBClient(config.getMongoURL());
         //Init connection service.
         ConnectionsService connectionsService = new ConnectionsService(symClient);
 
