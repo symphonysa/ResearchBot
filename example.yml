@@ -29,12 +29,7 @@ server:
 #  hardNofileLimit: 1000
   applicationConnectors:
     - type: http
-      port: 7070
-    - type: https
-      port: 8443
-      keyStorePath:
-      keyStorePassword:
-      validateCerts: false
+      port: 7075
 
     #this requires the alpn-boot library on the JVM's boot classpath
     #- type: h2
@@ -84,13 +79,15 @@ viewRendererConfiguration:
         whitespace_stripping: yes
 
 #ONLY EDIT THIS SECTION FOR SYMPHONY CONFIG
-sessionAuthURL:
-keyAuthUrl:
-localKeystorePath:
-localKeystorePassword:
-botCertPath:
-botCertPassword:
-botEmailAddress:
-agentAPIEndpoint:
-podAPIEndpoint:
-userEmailAddress:
+sessionAuthURL: https://preview.symphony.com:8444/sessionauth
+keyAuthUrl: https://preview.symphony.com:8444/keyauth
+localKeystorePath: /Users/manuela.caicedo/Downloads/all_symphony_certs_truststore
+localKeystorePassword: changeit
+botCertPath: /Users/manuela.caicedo/Documents/certs/bot.user26.p12
+botCertPassword: changeit
+botEmailAddress: bot.user26@example.com
+agentAPIEndpoint: https://preview.symphony.com/agent
+podAPIEndpoint: https://preview.symphony.com/pod
+userEmailAddress: kevin@symphony.com
+proxyURL: https://wwwproxy:8080
+mongoURL: mongodb://ioibot:1GaWixKxGEGe4Kfz@mifidbotcluster-shard-00-00-oboew.mongodb.net:27017,mifidbotcluster-shard-00-01-oboew.mongodb.net:27017,mifidbotcluster-shard-00-02-oboew.mongodb.net:27017/IOIBot?ssl=true&replicaSet=MiFIDBotCluster-shard-0&authSource=admin
