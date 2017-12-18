@@ -58,5 +58,5 @@ To test the application run the following commands.
 ### Why Dropwizard?
 This code can be implemented all from a Main class, for an example of this check out [ChatBot Sample](https://github.com/symphonysa/ChatBotSample), but this example is created as a Dropwizard application so it can be extended to have endpoints to post content from other systems your firm might already use to distribute content. An example will be included in a next phase, but if you want to implement this, start by adding a method on the `ResearchBotResource` class and using the ResearchBot instance to create methods to handle that. 
 
-###Want more info?
+### Want more info?
 Contact Symphony Platform Solutions Team
