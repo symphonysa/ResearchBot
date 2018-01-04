@@ -5,7 +5,7 @@
 This example uses the [SymphonyOSS symphony-java-client](https://github.com/symphonyoss/symphony-java-client) and Dropwizard. The Research Distribution Bot receives content from users in the pod it is deployed in and forwards it to external users who have registered their interest to follow specific tags or authors.
 ## Pre-requisite
 
-Service account with a valid certificate for the bot
+Service account with a valid certificate provisioned for external communication
 
 ## Overview
 
