@@ -46,6 +46,16 @@ public class SymphonyTestConfiguration extends Configuration {
 
     private String mongoURL;
 
+    private boolean isExternal;
+
+    public boolean isExternal() {
+        return isExternal;
+    }
+
+    public void setExternal(boolean external) {
+        isExternal = external;
+    }
+
     public String getMongoURL() {
         return mongoURL;
     }

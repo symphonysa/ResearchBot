@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.symphony.research.SymphonyTestConfiguration;
 import com.symphony.research.model.MessageEntities;
+import com.symphony.research.model.ResearchArticle;
 import com.symphony.research.model.ResearchInterest;
 import com.symphony.research.mongo.MongoDBClient;
 import com.symphony.research.utils.MessageParser;
@@ -40,34 +41,37 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
     private MessageParser messageParser;
 
     protected ResearchBot(SymphonyClient symClient, SymphonyTestConfiguration config) {
-        this.symClient=symClient;
+        this.symClient = symClient;
         this.config = config;
         init();
 
 
     }
 
-    public static ResearchBot getInstance(SymphonyClient symClient, SymphonyTestConfiguration config){
-        if(instance==null){
-            instance = new ResearchBot(symClient,config);
+    public static ResearchBot getInstance(SymphonyClient symClient, SymphonyTestConfiguration config) {
+        if (instance == null) {
+            instance = new ResearchBot(symClient, config);
         }
         return instance;
     }
 
     private void init() {
 
-        logger.info("Connections example starting...");
+
+        if (config.isExternal()) {
+            //Init connection service.
+            ConnectionsService connectionsService = new ConnectionsService(symClient);
+
+            //Optional to auto accept connections.
+            connectionsService.setAutoAccept(true);
+        }
 
         symClient.getChatService().addListener(this);
         roomService = symClient.getRoomService();
         roomService.addRoomServiceEventListener(this);
 
         mongoDBClient = new MongoDBClient(config.getMongoURL());
-        //Init connection service.
-        ConnectionsService connectionsService = new ConnectionsService(symClient);
 
-        //Optional to auto accept connections.
-        connectionsService.setAutoAccept(true);
 
         this.messageParser = new MessageParser();
 
@@ -76,9 +80,8 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
 
     @Override
     public void onChatMessage(SymMessage message) {
-            processNewMessage(message);
-        }
-
+        processNewMessage(message);
+    }
 
 
     @Override
@@ -148,7 +151,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
 
     }
 
-    private void processNewMessage (SymMessage message) {
+    private void processNewMessage(SymMessage message) {
         if (message == null)
             return;
         logger.debug("TS: {}\nFrom ID: {}\nSymMessage: {}\nSymMessage Type: {}",
@@ -171,7 +174,9 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                 messageEntities.getUsers().clear();
                 messageEntities.getUsers().add(message.getSymUser().getId().toString());
                 messageEntities.getHashtags().remove("newresearch");
+
                 List<ResearchInterest> researchInterests = mongoDBClient.getInterested(messageEntities);
+
                 String presentationML = message.getMessage();
                 int endoftag = presentationML.indexOf(">");
                 String start = presentationML.substring(0, endoftag + 1);
@@ -190,33 +195,17 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                 SymMessage researchmessage = new SymMessage();
                 researchmessage.setMessage(resultmessage);
                 researchmessage.setEntityData(resultdata);
-                List<SymAttachmentInfo> attachments= new ArrayList<>();
                 try {
-                for (SymAttachmentInfo attachment: message.getAttachments()) {
-                    byte[] attachmentData = symClient.getAttachmentsClient().getAttachmentData(attachment,message);
-                    String basename = FilenameUtils.getBaseName(attachment.getName());
-                    String extension = "."+FilenameUtils.getExtension(attachment.getName());
-                    File tempFile = File.createTempFile(basename,extension);
-                    FileOutputStream fos = new FileOutputStream(tempFile);
-                    fos.write(attachmentData);
-                    researchmessage.setAttachment(tempFile);
-                    //attachments.add(symClient.getAttachmentsClient().postAttachment(attachment.getName(),tempFile));
-                }
-                //researchmessage.setAttachments(attachments);
-                for (ResearchInterest interest : researchInterests) {
-                    Stream stream = new Stream();
-                    stream.setId(interest.getStreamId());
-
-
-                        SymMessage messageSent = symClient.getMessagesClient().sendMessage(stream, researchmessage);
-                        String targetCompany = symClient.getUsersClient().getUserFromId(interest.getUser()).getCompany();
-                        mongoDBClient.researchSent(messageSent,message.getSymUser().getEmailAddress(),targetCompany, messageEntities);
-
-                }
-                } catch (MessagesException e) {
-                    e.printStackTrace();
-                } catch (UsersClientException e) {
-                    e.printStackTrace();
+                    for (SymAttachmentInfo attachment : message.getAttachments()) {
+                        byte[] attachmentData = symClient.getAttachmentsClient().getAttachmentData(attachment, message);
+                        String basename = FilenameUtils.getBaseName(attachment.getName());
+                        String extension = "." + FilenameUtils.getExtension(attachment.getName());
+                        File tempFile = File.createTempFile(basename, extension);
+                        FileOutputStream fos = new FileOutputStream(tempFile);
+                        fos.write(attachmentData);
+                        researchmessage.setAttachment(tempFile);
+                    }
+                    sendResearchMessage(researchmessage, researchInterests, messageEntities, message.getSymUser().getEmailAddress());
                 } catch (AttachmentsException e) {
                     e.printStackTrace();
                 } catch (FileNotFoundException e) {
@@ -224,11 +213,11 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (message.getMessageText().toLowerCase().contains("#follow") & isExternal) {
+            } else if (message.getMessageText().toLowerCase().contains("#follow") & (config.isExternal() & isExternal)) {
                 messageEntities.getHashtags().remove("follow");
-                
+
                 boolean done = mongoDBClient.registerInterest(messageEntities, message.getStreamId(), message.getSymUser().getId());
-                if(done) {
+                if (done) {
                     Stream stream = new Stream();
                     stream.setId(message.getStreamId());
                     SymMessage followmessage = new SymMessage();
@@ -238,8 +227,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                     } catch (MessagesException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     Stream stream = new Stream();
                     stream.setId(message.getStreamId());
                     SymMessage followmessage = new SymMessage();
@@ -251,7 +239,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                     }
                 }
 
-            } else if (message.getMessageText().toLowerCase().contains("#unfollow") & isExternal) {
+            } else if (message.getMessageText().toLowerCase().contains("#unfollow") & (config.isExternal() & isExternal)) {
                 messageEntities.getHashtags().remove("unfollow");
                 mongoDBClient.unfollowInterest(messageEntities, message.getStreamId());
 
@@ -267,13 +255,13 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
 
             } else if (message.getMessageText().toLowerCase().contains("#help") & isExternal) {
                 messageEntities.getHashtags().remove("help");
-                List <ResearchInterest> researchInterests = mongoDBClient.getStreamInterests(message.getStreamId());
+                List<ResearchInterest> researchInterests = mongoDBClient.getStreamInterests(message.getStreamId());
 
                 Stream stream = new Stream();
                 stream.setId(message.getStreamId());
                 SymMessage unfollowmessage = new SymMessage();
-                String messageContent= "<messageML><br/><br/>";
-                if(!researchInterests.isEmpty()){
+                String messageContent = "<messageML><br/><br/>";
+                if (!researchInterests.isEmpty()) {
                     messageContent = messageContent.concat("You are following:<br/><ul>");
                     for (ResearchInterest interest : researchInterests) {
                         if (interest.getType().equals("cashtag")) {
@@ -295,6 +283,50 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                 }
 
             }
+        }
+    }
+
+    public void distributeResearch(ResearchArticle researchReceived) throws UsersClientException {
+        MessageEntities messageEntities = new MessageEntities();
+        List<String> authorList = new ArrayList<>();
+
+        authorList.add(symClient.getUsersClient().getUserFromEmail(researchReceived.getAuthorEmail()).getId().toString());
+        messageEntities.setUsers(authorList);
+        messageEntities.setHashtags(researchReceived.getHashtags());
+        messageEntities.setCashtags(researchReceived.getCashtags());
+        List<ResearchInterest> researchInterests = mongoDBClient.getInterested(messageEntities);
+
+        StringBuilder sb = new StringBuilder("<messageML><br/><br/><hash tag=\"newresearch\"/> from <mention email=\"" + researchReceived.getAuthorEmail() + "\"/> <br/> Tags: ");
+
+        for (String hashtag : researchReceived.getHashtags()) {
+            sb.append(" <hash tag=\"" + hashtag + "\"/>");
+        }
+
+        sb.append("<br/> Article: <a href=\"" + researchReceived.getLink() + "\">" + researchReceived.getTitle() + "</a></messageML>");
+
+        SymMessage message = new SymMessage();
+        message.setMessage(sb.toString());
+
+        sendResearchMessage(message, researchInterests, messageEntities,researchReceived.getAuthorEmail());
+
+    }
+
+    public void sendResearchMessage(SymMessage message, List<ResearchInterest> researchInterests, MessageEntities entities, String senderEmail) {
+        try {
+            for (ResearchInterest interest : researchInterests) {
+                Stream stream = new Stream();
+                stream.setId(interest.getStreamId());
+
+
+                SymMessage messageSent = symClient.getMessagesClient().sendMessage(stream, message);
+                String targetCompany = symClient.getUsersClient().getUserFromId(interest.getUser()).getCompany();
+                mongoDBClient.researchSent(messageSent, senderEmail, targetCompany, entities);
+
+            }
+        } catch (MessagesException e) {
+            e.printStackTrace();
+        } catch (UsersClientException e) {
+            e.printStackTrace();
         }
     }
 }

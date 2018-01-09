@@ -2,14 +2,20 @@ package com.symphony.research.resources;
 
 import com.symphony.research.SymphonyTestConfiguration;
 import com.symphony.research.bots.ResearchBot;
+import com.symphony.research.model.ResearchArticle;
 import com.symphony.research.utils.SymphonyAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
+import org.symphonyoss.client.exceptions.UsersClientException;
 
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-@Path("/researchBot")
+@Path("/research")
 public class ResearchBotResource {
 
     private SymphonyTestConfiguration config;
@@ -30,5 +36,16 @@ public class ResearchBotResource {
         }
     }
 
+    @POST
+    @Path("/article")
+    public Response sendIOI(ResearchArticle researchReceived) {
+        try {
+            researchBot.distributeResearch(researchReceived);
+        } catch (UsersClientException e) {
+            return Response.status(500).build();
+        }
+
+        return Response.status(Response.Status.OK).build();
+    }
 
 }

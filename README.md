@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This example uses the [SymphonyOSS symphony-java-client](https://github.com/symphonyoss/symphony-java-client) and Dropwizard. The Research Distribution Bot receives content from users in the pod it is deployed in and forwards it to external users who have registered their interest to follow specific tags or authors.
+This example uses the [SymphonyOSS symphony-java-client](https://github.com/symphonyoss/symphony-java-client) and Dropwizard. The Research Distribution Bot receives content from users in the pod it is deployed in and forwards it to users who have registered their interest to follow specific tags or authors.
 ## Pre-requisite
 
 Service account with a valid certificate for the bot
@@ -36,9 +36,12 @@ Set up your config in `sample.yml`. Fill out the following parameters.
         botEmailAddress: bot.user@example.com
         agentAPIEndpoint: https://your-agent.symphony.com/agent
         podAPIEndpoint: https://your-pod.symphony.com/pod
+        userEmailAddress: your-email@company.com
+        mongoURL: URL to your mongo instance
+        external: boolean to define whether your bot is meant for internal or external distribution of research
         
-        keyStorePath: 
-        keyStorePassword: 
+        keyStorePath: keystore for https deployment
+        keyStorePassword: password for https deployment
 
 If you are developing a bot that lives within an enterprise pod with on-premise components (KM and Agent) and need a proxy to reach the cloud (your pod) add the following field to your sample.yml file
 
@@ -56,7 +59,21 @@ To test the application run the following commands.
         java -jar target/research-bot-1.1.0-SNAPSHOT-sources.jar server sample.yml
         
 ### Why Dropwizard?
-This code can be implemented all from a Main class, for an example of this check out [ChatBot Sample](https://github.com/symphonysa/ChatBotSample), but this example is created as a Dropwizard application so it can be extended to have endpoints to post content from other systems your firm might already use to distribute content. An example will be included in a next phase, but if you want to implement this, start by adding a method on the `ResearchBotResource` class and using the ResearchBot instance to create methods to handle that. 
+This code can be implemented all from a Main class, for an example of this check out [ChatBot Sample](https://github.com/symphonysa/ChatBotSample), but this example is created as a Dropwizard application so it can have endpoints to post content from other systems your firm might already use to distribute content. To customize the endpoints that enable REST api access to your bot go to `ResearchBotResource` class.
+
+#### Example
+
+To test this feature running locally do an HTTP POST to  "http://localhost:7075/research/article" with the following JSON body
+
+        {
+            "title":"test",
+            "link":"https://www.google.com",
+            "authorEmail":"manuela.caicedo@symphony.com",
+            "hashtags": ["test","research"],
+            "cashtags": ["aapl"]
+        }
+        
+Note: this feature gives programmatic access to other applications to send messages using your bot credentials, implement authentication according to you internal standards.
 
 ### Want more info?
 Contact Symphony Platform Solutions Team
