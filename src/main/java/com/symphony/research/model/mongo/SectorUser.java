@@ -1,4 +1,4 @@
-package com.symphony.research.model;
+package com.symphony.research.model.mongo;
 
 import org.bson.types.ObjectId;
 

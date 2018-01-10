@@ -6,8 +6,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 
 import com.symphony.research.model.MessageEntities;
-import com.symphony.research.model.ResearchInterest;
-import com.symphony.research.model.ResearchSent;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;
@@ -15,8 +13,9 @@ import static com.mongodb.client.model.Updates.combine;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-import com.mongodb.client.result.UpdateResult;
-import com.symphony.research.model.SectorUser;
+import com.symphony.research.model.mongo.ResearchInterest;
+import com.symphony.research.model.mongo.ResearchSent;
+import com.symphony.research.model.mongo.SectorUser;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;

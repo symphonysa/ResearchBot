@@ -1,4 +1,4 @@
-package com.symphony.research.model;
+package com.symphony.research.model.in;
 
 import java.util.List;
 

@@ -5,11 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.symphony.research.SymphonyTestConfiguration;
 import com.symphony.research.model.MessageEntities;
-import com.symphony.research.model.ResearchArticle;
-import com.symphony.research.model.ResearchInterest;
+import com.symphony.research.model.in.ResearchArticle;
+import com.symphony.research.model.mongo.ResearchInterest;
 import com.symphony.research.mongo.MongoDBClient;
 import com.symphony.research.utils.MessageParser;
-import io.swagger.util.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.symphonyoss.client.SymphonyClient;
@@ -29,7 +28,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 import org.apache.commons.io.FilenameUtils;
-import sun.jvm.hotspot.debugger.cdbg.Sym;
 
 public class ResearchBot implements ChatListener, ChatServiceListener, RoomServiceEventListener, RoomEventListener {
 
