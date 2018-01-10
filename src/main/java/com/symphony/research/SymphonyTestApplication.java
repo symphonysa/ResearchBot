@@ -1,7 +1,9 @@
 package com.symphony.research;
 
 
+import com.symphony.research.mongo.MongoDBClient;
 import com.symphony.research.resources.ResearchBotResource;
+import com.symphony.research.resources.SectorResource;
 import io.dropwizard.Application;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
@@ -47,6 +49,8 @@ public class SymphonyTestApplication extends Application<SymphonyTestConfigurati
         cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-        environment.jersey().register(new ResearchBotResource(configuration));
+        MongoDBClient mongoDBClient = new MongoDBClient(configuration.getMongoURL());
+        environment.jersey().register(new ResearchBotResource(configuration, mongoDBClient));
+        environment.jersey().register(new SectorResource(configuration, mongoDBClient));
     }
 }

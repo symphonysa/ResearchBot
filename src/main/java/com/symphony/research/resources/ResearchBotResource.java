@@ -3,6 +3,7 @@ package com.symphony.research.resources;
 import com.symphony.research.SymphonyTestConfiguration;
 import com.symphony.research.bots.ResearchBot;
 import com.symphony.research.model.ResearchArticle;
+import com.symphony.research.mongo.MongoDBClient;
 import com.symphony.research.utils.SymphonyAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +24,13 @@ public class ResearchBotResource {
     private final Logger LOG = LoggerFactory.getLogger(ResearchBotResource.class);
     private ResearchBot researchBot;
 
-    public ResearchBotResource(SymphonyTestConfiguration config) {
+    public ResearchBotResource(SymphonyTestConfiguration config, MongoDBClient mongoDBClient) {
         this.config = config;
         try {
             SymphonyClient symClient = new SymphonyAuth().init(config);
             System.out.println(symClient.getSymAuth().getSessionToken().getToken());
             System.out.println(symClient.getSymAuth().getKeyToken().getToken());
-            researchBot = ResearchBot.getInstance(symClient, config);
+            researchBot = ResearchBot.getInstance(symClient, config, mongoDBClient);
 
         } catch (Exception e) {
             LOG.error("error", e);

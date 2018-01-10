@@ -48,6 +48,26 @@ public class SymphonyTestConfiguration extends Configuration {
 
     private boolean isExternal;
 
+    private boolean allowFollow;
+
+    private boolean allowPosting;
+
+    public boolean isAllowPosting() {
+        return allowPosting;
+    }
+
+    public void setAllowPosting(boolean allowPosting) {
+        this.allowPosting = allowPosting;
+    }
+
+    public boolean isAllowFollow() {
+        return allowFollow;
+    }
+
+    public void setAllowFollow(boolean allowFollow) {
+        this.allowFollow = allowFollow;
+    }
+
     public boolean isExternal() {
         return isExternal;
     }

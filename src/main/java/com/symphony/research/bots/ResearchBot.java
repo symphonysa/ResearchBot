@@ -29,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 import org.apache.commons.io.FilenameUtils;
+import sun.jvm.hotspot.debugger.cdbg.Sym;
 
 public class ResearchBot implements ChatListener, ChatServiceListener, RoomServiceEventListener, RoomEventListener {
 
@@ -40,17 +41,18 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
     private MongoDBClient mongoDBClient;
     private MessageParser messageParser;
 
-    protected ResearchBot(SymphonyClient symClient, SymphonyTestConfiguration config) {
+    protected ResearchBot(SymphonyClient symClient, SymphonyTestConfiguration config, MongoDBClient mongoDBClient) {
         this.symClient = symClient;
         this.config = config;
+        this.mongoDBClient = mongoDBClient;
         init();
 
 
     }
 
-    public static ResearchBot getInstance(SymphonyClient symClient, SymphonyTestConfiguration config) {
+    public static ResearchBot getInstance(SymphonyClient symClient, SymphonyTestConfiguration config, MongoDBClient mongoDBClient) {
         if (instance == null) {
-            instance = new ResearchBot(symClient, config);
+            instance = new ResearchBot(symClient, config, mongoDBClient);
         }
         return instance;
     }
@@ -70,7 +72,6 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
         roomService = symClient.getRoomService();
         roomService.addRoomServiceEventListener(this);
 
-        mongoDBClient = new MongoDBClient(config.getMongoURL());
 
 
         this.messageParser = new MessageParser();
@@ -170,118 +171,41 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
 
             MessageEntities messageEntities = messageParser.getMessageEntities(message.getEntityData());
 
-            if (message.getMessage().toLowerCase().contains("newresearch") & !isExternal) {
-                messageEntities.getUsers().clear();
-                messageEntities.getUsers().add(message.getSymUser().getId().toString());
-                messageEntities.getHashtags().remove("newresearch");
-
-                List<ResearchInterest> researchInterests = mongoDBClient.getInterested(messageEntities);
-
-                String presentationML = message.getMessage();
-                int endoftag = presentationML.indexOf(">");
-                String start = presentationML.substring(0, endoftag + 1);
-                String resultmessage = start.concat("<br/><br/> Research from <span class=\"entity\" data-entity-id=\"mentionAdded\">@" + message.getSymUser().getDisplayName() + "</span>: <br/> ");
-                String end = presentationML.substring(endoftag + 1, presentationML.length());
-                resultmessage = resultmessage.concat(end);
-                String data = message.getEntityData();
-                JsonParser jsonParser = new JsonParser();
-                JsonElement json = jsonParser.parse(data);
-                JsonObject object = json.getAsJsonObject();
-                JsonObject mentionValue = jsonParser.parse("{\"type\":\"com.symphony.user.mention\",\"version\":\"1.0\",\"id\":[{\"type\":\"com.symphony.user.userId\",\"value\":\"" + message.getSymUser().getId() + "\"}]}").getAsJsonObject();
-                object.add("mentionAdded", mentionValue);
-                String resultdata = object.toString();
-
-
-                SymMessage researchmessage = new SymMessage();
-                researchmessage.setMessage(resultmessage);
-                researchmessage.setEntityData(resultdata);
-                try {
-                    for (SymAttachmentInfo attachment : message.getAttachments()) {
-                        byte[] attachmentData = symClient.getAttachmentsClient().getAttachmentData(attachment, message);
-                        String basename = FilenameUtils.getBaseName(attachment.getName());
-                        String extension = "." + FilenameUtils.getExtension(attachment.getName());
-                        File tempFile = File.createTempFile(basename, extension);
-                        FileOutputStream fos = new FileOutputStream(tempFile);
-                        fos.write(attachmentData);
-                        researchmessage.setAttachment(tempFile);
-                    }
-                    sendResearchMessage(researchmessage, researchInterests, messageEntities, message.getSymUser().getEmailAddress());
-                } catch (AttachmentsException e) {
-                    e.printStackTrace();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else if (message.getMessageText().toLowerCase().contains("#follow") & (config.isExternal() & isExternal)) {
-                messageEntities.getHashtags().remove("follow");
-
-                boolean done = mongoDBClient.registerInterest(messageEntities, message.getStreamId(), message.getSymUser().getId());
-                if (done) {
-                    Stream stream = new Stream();
-                    stream.setId(message.getStreamId());
-                    SymMessage followmessage = new SymMessage();
-                    followmessage.setMessage("<messageML>Interests registered</messageML>");
-                    try {
-                        symClient.getMessagesClient().sendMessage(stream, followmessage);
-                    } catch (MessagesException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Stream stream = new Stream();
-                    stream.setId(message.getStreamId());
-                    SymMessage followmessage = new SymMessage();
-                    followmessage.setMessage("<messageML>Nothing new to follow</messageML>");
-                    try {
-                        symClient.getMessagesClient().sendMessage(stream, followmessage);
-                    } catch (MessagesException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else if (message.getMessageText().toLowerCase().contains("#unfollow") & (config.isExternal() & isExternal)) {
-                messageEntities.getHashtags().remove("unfollow");
-                mongoDBClient.unfollowInterest(messageEntities, message.getStreamId());
-
-                Stream stream = new Stream();
-                stream.setId(message.getStreamId());
-                SymMessage unfollowmessage = new SymMessage();
-                unfollowmessage.setMessage("<messageML>Un-follow successful</messageML>");
-                try {
-                    symClient.getMessagesClient().sendMessage(stream, unfollowmessage);
-                } catch (MessagesException e) {
-                    e.printStackTrace();
-                }
-
-            } else if (message.getMessageText().toLowerCase().contains("#help") & isExternal) {
+            if(config.isAllowPosting()){
+                handleNewResearch(message,isExternal,messageEntities);
+            } else if (message.getMessageText().toLowerCase().contains("#help")) {
                 messageEntities.getHashtags().remove("help");
                 List<ResearchInterest> researchInterests = mongoDBClient.getStreamInterests(message.getStreamId());
 
                 Stream stream = new Stream();
                 stream.setId(message.getStreamId());
-                SymMessage unfollowmessage = new SymMessage();
-                String messageContent = "<messageML><br/><br/>";
+                SymMessage helpMessage = new SymMessage();
+                StringBuilder messageContent = new StringBuilder("<messageML><br/><br/>");
                 if (!researchInterests.isEmpty()) {
-                    messageContent = messageContent.concat("You are following:<br/><ul>");
+                    messageContent.append("You are following:<br/><ul>");
                     for (ResearchInterest interest : researchInterests) {
                         if (interest.getType().equals("cashtag")) {
-                            messageContent = messageContent.concat("<li><cash tag=\"" + interest.getEntity() + "\"/></li>");
+                            messageContent.append("<li><cash tag=\"" + interest.getEntity() + "\"/></li>");
                         } else if (interest.getType().equals("hashtag")) {
-                            messageContent = messageContent.concat("<li><hash tag=\"" + interest.getEntity() + "\"/></li>");
+                            messageContent.append("<li><hash tag=\"" + interest.getEntity() + "\"/></li>");
                         } else if (interest.getType().equals("user")) {
-                            messageContent = messageContent.concat("<li><mention uid=\"" + interest.getEntity() + "\"/></li>");
+                            messageContent.append("<li><mention uid=\"" + interest.getEntity() + "\"/></li>");
                         }
                     }
-                    messageContent = messageContent.concat("</ul><br/>");
+                    messageContent.append("</ul><br/>");
                 }
-                messageContent = messageContent.concat("To manage your followed keywords and authors use <hash tag=\"follow\"/> and <hash tag=\"unfollow\"/> followed by any keywords or authors that you want to follow/un-follow</messageML>");
-                unfollowmessage.setMessage(messageContent);
+                if (config.isAllowFollow())
+                    messageContent.append("To manage your followed keywords and authors use <hash tag=\"follow\"/> and <hash tag=\"unfollow\"/> followed by any keywords or authors that you want to follow/un-follow");
+
+                messageContent.append("</messageML>");
+                helpMessage.setMessage(messageContent.toString());
                 try {
-                    symClient.getMessagesClient().sendMessage(stream, unfollowmessage);
+                    symClient.getMessagesClient().sendMessage(stream, helpMessage);
                 } catch (MessagesException e) {
                     e.printStackTrace();
                 }
-
+            } else if (config.isAllowFollow()){
+                handleFollow(message,messageEntities,isExternal);
             }
         }
     }
@@ -294,7 +218,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
         messageEntities.setUsers(authorList);
         messageEntities.setHashtags(researchReceived.getHashtags());
         messageEntities.setCashtags(researchReceived.getCashtags());
-        List<ResearchInterest> researchInterests = mongoDBClient.getInterested(messageEntities);
+
 
         StringBuilder sb = new StringBuilder("<messageML><br/><br/><hash tag=\"newresearch\"/> from <mention email=\"" + researchReceived.getAuthorEmail() + "\"/> <br/> Tags: ");
 
@@ -307,26 +231,137 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
         SymMessage message = new SymMessage();
         message.setMessage(sb.toString());
 
-        sendResearchMessage(message, researchInterests, messageEntities,researchReceived.getAuthorEmail());
+        sendResearchMessage(message, messageEntities,researchReceived.getAuthorEmail());
 
     }
 
-    public void sendResearchMessage(SymMessage message, List<ResearchInterest> researchInterests, MessageEntities entities, String senderEmail) {
+    public void sendResearchMessage(SymMessage message, MessageEntities messageEntities, String senderEmail) {
+        List<ResearchInterest> researchInterests = mongoDBClient.getInterested(messageEntities);
         try {
             for (ResearchInterest interest : researchInterests) {
-                Stream stream = new Stream();
-                stream.setId(interest.getStreamId());
+                String targetCompany;
+                if(interest.getSector()!=null){
+                    List<String> users = mongoDBClient.getSectorUsers(interest.getSector());
+                    for (String email: users) {
+                        Chat chat = new Chat();
+                        chat.setLocalUser(symClient.getLocalUser());
+                        Set<SymUser> recipients = new HashSet<>();
+                        SymUser recipient = symClient.getUsersClient().getUserFromEmail(email);
+                        recipients.add(recipient);
+                        chat.setRemoteUsers(recipients);
+                        chat.addListener(this);
+                        symClient.getChatService().addChat(chat);
+                        targetCompany = recipient.getCompany();
+                        SymMessage messageSent = symClient.getMessagesClient().sendMessage(chat.getStream(), message);
+                        mongoDBClient.researchSent(messageSent, senderEmail, targetCompany, messageEntities);
+                    }
 
+                } else if (interest.getStreamId() !=null ){
+                    Stream stream = new Stream();
+                    stream.setId(interest.getStreamId());
 
-                SymMessage messageSent = symClient.getMessagesClient().sendMessage(stream, message);
-                String targetCompany = symClient.getUsersClient().getUserFromId(interest.getUser()).getCompany();
-                mongoDBClient.researchSent(messageSent, senderEmail, targetCompany, entities);
+                    SymMessage messageSent = symClient.getMessagesClient().sendMessage(stream, message);
+                    targetCompany = symClient.getUsersClient().getUserFromId(interest.getUser()).getCompany();
+                    mongoDBClient.researchSent(messageSent, senderEmail, targetCompany, messageEntities);
+                }
+
 
             }
         } catch (MessagesException e) {
             e.printStackTrace();
         } catch (UsersClientException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void handleFollow(SymMessage message, MessageEntities messageEntities, boolean isExternal){
+        if (message.getMessageText().toLowerCase().contains("#follow") & (config.isExternal() & isExternal)) {
+            messageEntities.getHashtags().remove("follow");
+
+            boolean done = mongoDBClient.registerInterest(messageEntities, message.getStreamId(), message.getSymUser().getId());
+            if (done) {
+                Stream stream = new Stream();
+                stream.setId(message.getStreamId());
+                SymMessage followmessage = new SymMessage();
+                followmessage.setMessage("<messageML>Interests registered</messageML>");
+                try {
+                    symClient.getMessagesClient().sendMessage(stream, followmessage);
+                } catch (MessagesException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Stream stream = new Stream();
+                stream.setId(message.getStreamId());
+                SymMessage followmessage = new SymMessage();
+                followmessage.setMessage("<messageML>Nothing new to follow</messageML>");
+                try {
+                    symClient.getMessagesClient().sendMessage(stream, followmessage);
+                } catch (MessagesException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } else if (message.getMessageText().toLowerCase().contains("#unfollow") & (config.isExternal() & isExternal)) {
+            messageEntities.getHashtags().remove("unfollow");
+            mongoDBClient.unfollowInterest(messageEntities, message.getStreamId());
+
+            Stream stream = new Stream();
+            stream.setId(message.getStreamId());
+            SymMessage unfollowmessage = new SymMessage();
+            unfollowmessage.setMessage("<messageML>Un-follow successful</messageML>");
+            try {
+                symClient.getMessagesClient().sendMessage(stream, unfollowmessage);
+            } catch (MessagesException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public void handleNewResearch(SymMessage message, boolean isExternal, MessageEntities messageEntities){
+        if (message.getMessage().toLowerCase().contains("newresearch") & !isExternal) {
+            messageEntities.getUsers().clear();
+            messageEntities.getUsers().add(message.getSymUser().getId().toString());
+            messageEntities.getHashtags().remove("newresearch");
+
+
+
+            String presentationML = message.getMessage();
+            int endoftag = presentationML.indexOf(">");
+            String start = presentationML.substring(0, endoftag + 1);
+            String resultmessage = start.concat("<br/><br/> Research from <span class=\"entity\" data-entity-id=\"mentionAdded\">@" + message.getSymUser().getDisplayName() + "</span>: <br/> ");
+            String end = presentationML.substring(endoftag + 1, presentationML.length());
+            resultmessage = resultmessage.concat(end);
+            String data = message.getEntityData();
+            JsonParser jsonParser = new JsonParser();
+            JsonElement json = jsonParser.parse(data);
+            JsonObject object = json.getAsJsonObject();
+            JsonObject mentionValue = jsonParser.parse("{\"type\":\"com.symphony.user.mention\",\"version\":\"1.0\",\"id\":[{\"type\":\"com.symphony.user.userId\",\"value\":\"" + message.getSymUser().getId() + "\"}]}").getAsJsonObject();
+            object.add("mentionAdded", mentionValue);
+            String resultdata = object.toString();
+
+
+            SymMessage researchmessage = new SymMessage();
+            researchmessage.setMessage(resultmessage);
+            researchmessage.setEntityData(resultdata);
+            try {
+                for (SymAttachmentInfo attachment : message.getAttachments()) {
+                    byte[] attachmentData = symClient.getAttachmentsClient().getAttachmentData(attachment, message);
+                    String basename = FilenameUtils.getBaseName(attachment.getName());
+                    String extension = "." + FilenameUtils.getExtension(attachment.getName());
+                    File tempFile = File.createTempFile(basename, extension);
+                    FileOutputStream fos = new FileOutputStream(tempFile);
+                    fos.write(attachmentData);
+                    researchmessage.setAttachment(tempFile);
+                }
+                sendResearchMessage(researchmessage, messageEntities, message.getSymUser().getEmailAddress());
+            } catch (AttachmentsException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

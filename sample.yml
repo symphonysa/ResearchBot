@@ -92,3 +92,5 @@ userEmailAddress:
 proxyURL:
 mongoURL:
 external:
+allowFollow:
+allowPosting:

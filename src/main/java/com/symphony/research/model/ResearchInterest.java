@@ -9,12 +9,20 @@ public class ResearchInterest {
     String entity;
     Long user;
     String type;
+    String sector;
 
     public ResearchInterest() {
     }
 
     public ResearchInterest(String streamId, String entity, Long user, String type) {
         this.streamId = streamId;
+        this.entity = entity;
+        this.user = user;
+        this.type = type;
+    }
+
+    public ResearchInterest(String entity, Long user, String type, String sector) {
+        this.sector = sector;
         this.entity = entity;
         this.user = user;
         this.type = type;
@@ -58,5 +66,13 @@ public class ResearchInterest {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 }

@@ -39,6 +39,8 @@ Set up your config in `sample.yml`. Fill out the following parameters.
         userEmailAddress: your-email@company.com
         mongoURL: URL to your mongo instance
         external: boolean to define whether your bot is meant for internal or external distribution of research
+        allowFollow: boolean to define whether the bot allows the use of #follow and #unfollow to define research interests and distribution
+        allowPosting: boolean to define whether the bot allows the use of #newresearch to publish new content or relies only on REST endpoints
         
         keyStorePath: keystore for https deployment
         keyStorePassword: password for https deployment
@@ -61,9 +63,11 @@ To test the application run the following commands.
 ### Why Dropwizard?
 This code can be implemented all from a Main class, for an example of this check out [ChatBot Sample](https://github.com/symphonysa/ChatBotSample), but this example is created as a Dropwizard application so it can have endpoints to post content from other systems your firm might already use to distribute content. To customize the endpoints that enable REST api access to your bot go to `ResearchBotResource` class.
 
-#### Example
+#### Examples
 
-To test this feature running locally do an HTTP POST to  "http://localhost:7075/research/article" with the following JSON body
+##### Publish content
+
+When running locally do an HTTP POST to  "http://localhost:7075/research/article" with the following JSON body
 
         {
             "title":"test",
@@ -73,7 +77,30 @@ To test this feature running locally do an HTTP POST to  "http://localhost:7075/
             "cashtags": ["aapl"]
         }
         
-Note: this feature gives programmatic access to other applications to send messages using your bot credentials, implement authentication according to you internal standards.
+##### Add an entry to the SectorUser table
+
+Purpose: Add a user to a Sector
+
+POST "http://localhost:7075/research/article" with the following JSON body
+
+        {
+            "sector":"autos",
+            "userEmail":"user@company.com"
+        }
+        
+##### Add an entry to the ResearchInterest table for a sector
+
+Purpose: Declare the interest of a sector in a Symphony entity
+
+POST "http://localhost:7075/research/interest" with the following JSON body
+
+        {
+           "entity": "autos",
+           "type":"hashtag",
+           "sector": "autos"
+        }
+        
+Note: this features gives programmatic access to other applications to send messages using your bot credentials, implement authentication according to you internal standards.
 
 ### Want more info?
 Contact Symphony Platform Solutions Team

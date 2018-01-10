@@ -16,6 +16,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import com.mongodb.client.result.UpdateResult;
+import com.symphony.research.model.SectorUser;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
@@ -26,17 +27,20 @@ import java.util.*;
 public class MongoDBClient {
     private MongoCollection<ResearchSent> researchSentCollection;
     private MongoCollection<ResearchInterest> researchInterestCollection;
+    private MongoCollection<SectorUser> sectorUserCollection;
 
     public MongoDBClient(String mongoURL) {
         MongoClientURI connectionString = new MongoClientURI(mongoURL);
         MongoClient mongoClient = new MongoClient(connectionString);
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-        MongoDatabase database = mongoClient.getDatabase("IOIBot");
+        MongoDatabase database = mongoClient.getDatabase("ResearchBot");
 
         database = database.withCodecRegistry(pojoCodecRegistry);
         researchSentCollection = database.getCollection("ResearchSent", ResearchSent.class);
         researchInterestCollection = database.getCollection("ResearchInterest", ResearchInterest.class);
+        sectorUserCollection = database.getCollection("Sector-User", SectorUser.class);
+
     }
 
     public List<ResearchInterest> getInterested(MessageEntities messageEntities){
@@ -142,5 +146,24 @@ public class MongoDBClient {
             }
         });
         return researchInterests;
+    }
+
+    public List<String> getSectorUsers(String sector) {
+        List<String> users = new ArrayList<>();
+        sectorUserCollection.find(eq("sector", sector)).forEach(new Block<SectorUser>() {
+            @Override
+            public void apply(final SectorUser sectorUser) {
+                users.add(sectorUser.getUserEmail());
+            }
+        });
+        return users;
+    }
+
+    public void newSectorUser(SectorUser sectorUser) {
+        sectorUserCollection.insertOne(sectorUser);
+    }
+
+    public void newResearchInterest(ResearchInterest researchInterest) {
+        researchInterestCollection.insertOne(researchInterest);
     }
 }
