@@ -52,6 +52,26 @@ public class SymphonyTestConfiguration extends Configuration {
 
     private boolean allowPosting;
 
+    private String proxyUsername;
+
+    private String proxyPassword;
+
+    public String getProxyUsername() {
+        return proxyUsername;
+    }
+
+    public void setProxyUsername(String proxyUsername) {
+        this.proxyUsername = proxyUsername;
+    }
+
+    public String getProxyPassword() {
+        return proxyPassword;
+    }
+
+    public void setProxyPassword(String proxyPassword) {
+        this.proxyPassword = proxyPassword;
+    }
+
     public boolean isAllowPosting() {
         return allowPosting;
     }

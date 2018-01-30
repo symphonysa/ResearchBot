@@ -29,6 +29,10 @@ public class SymphonyAuth {
             ClientConfig proxyClientConfig = new ClientConfig();
             proxyClientConfig.connectorProvider(new ApacheConnectorProvider());
             proxyClientConfig.property(ClientProperties.PROXY_URI, config.getProxyURL());
+            if(config.getProxyUsername() !=null){
+                proxyClientConfig.property(ClientProperties.PROXY_USERNAME, config.getProxyUsername());
+                proxyClientConfig.property(ClientProperties.PROXY_PASSWORD, config.getProxyPassword());
+            }
             Client proxyHttpClient = CustomHttpClient.getClient(config.getBotCertPath(),config.getBotCertPassword(),config.getLocalKeystorePath(),config.getLocalKeystorePassword(),proxyClientConfig);
 
             Client localHttpClient = CustomHttpClient.getClient(config.getBotCertPath(),config.getBotCertPassword(),config.getLocalKeystorePath(),config.getLocalKeystorePassword());

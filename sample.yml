@@ -94,3 +94,6 @@ mongoURL:
 external:
 allowFollow:
 allowPosting:
+#optional
+proxyUsername:
+proxyPassword:
