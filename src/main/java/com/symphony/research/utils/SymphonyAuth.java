@@ -61,7 +61,6 @@ public class SymphonyAuth {
         SymphonyClientConfig symphonyClientConfig = new SymphonyClientConfig(false);
         symphonyClientConfig.set(SymphonyClientConfigID.AGENT_URL, config.getAgentAPIEndpoint());
         symphonyClientConfig.set(SymphonyClientConfigID.POD_URL,config.getPodAPIEndpoint());
-        symphonyClientConfig.set(SymphonyClientConfigID.USER_EMAIL, config.getUserEmailAddress());
 
         symClient.init(symAuth,symphonyClientConfig);
 

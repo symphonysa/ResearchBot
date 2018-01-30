@@ -18,7 +18,6 @@ import com.symphony.research.model.mongo.ResearchSent;
 import com.symphony.research.model.mongo.SectorUser;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.bson.types.ObjectId;
 import org.symphonyoss.symphony.clients.model.SymMessage;
 
 import java.util.*;
