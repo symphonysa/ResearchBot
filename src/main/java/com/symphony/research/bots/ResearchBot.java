@@ -19,7 +19,9 @@ import org.symphonyoss.client.model.Room;
 import org.symphonyoss.client.services.*;
 import org.symphonyoss.symphony.clients.model.SymAttachmentInfo;
 import org.symphonyoss.symphony.clients.model.SymMessage;
+import org.symphonyoss.symphony.clients.model.SymRoomSearchCriteria;
 import org.symphonyoss.symphony.clients.model.SymUser;
+import org.symphonyoss.symphony.pod.model.RoomSearchCriteria;
 import org.symphonyoss.symphony.pod.model.Stream;
 
 import java.io.File;
@@ -151,6 +153,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
     }
 
     private void processNewMessage(SymMessage message) {
+
         if (message == null)
             return;
         logger.debug("TS: {}\nFrom ID: {}\nSymMessage: {}\nSymMessage Type: {}",
@@ -169,9 +172,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
 
             MessageEntities messageEntities = messageParser.getMessageEntities(message.getEntityData());
 
-            if(config.isAllowPosting()){
-                handleNewResearch(message,isExternal,messageEntities);
-            } else if (message.getMessageText().toLowerCase().contains("#help")) {
+            if (message.getMessageText().toLowerCase().contains("#help")) {
                 messageEntities.getHashtags().remove("help");
                 List<ResearchInterest> researchInterests = mongoDBClient.getStreamInterests(message.getStreamId());
 
@@ -199,11 +200,16 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
                 helpMessage.setMessage(messageContent.toString());
                 try {
                     symClient.getMessagesClient().sendMessage(stream, helpMessage);
+                    return;
                 } catch (MessagesException e) {
                     e.printStackTrace();
                 }
-            } else if (config.isAllowFollow()){
+            }
+            if (config.isAllowFollow()){
                 handleFollow(message,messageEntities,isExternal);
+            }
+            if(config.isAllowPosting()){
+                handleNewResearch(message,isExternal,messageEntities);
             }
         }
     }
@@ -273,7 +279,7 @@ public class ResearchBot implements ChatListener, ChatServiceListener, RoomServi
     }
 
     public void handleFollow(SymMessage message, MessageEntities messageEntities, boolean isExternal){
-        if (message.getMessageText().toLowerCase().contains("#follow") & (config.isExternal() & isExternal)) {
+        if (message.getMessageText().toLowerCase().contains("#follow") & (!config.isExternal() | (config.isExternal() & isExternal))) {
             messageEntities.getHashtags().remove("follow");
 
             boolean done = mongoDBClient.registerInterest(messageEntities, message.getStreamId(), message.getSymUser().getId());
